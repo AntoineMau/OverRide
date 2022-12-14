@@ -5,7 +5,7 @@
 ```C
 struct s_struct
 {
-    char msg[128];
+    char msg[140];
     char username[40];
     unsigned int i;
 }
