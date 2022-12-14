@@ -18,7 +18,7 @@ void secret_backdoor(void)
     system(string);
 }
 
-void set_msg(char *msg)
+void set_msg(_struc *s)
 {
     char message[128];
 
@@ -26,10 +26,10 @@ void set_msg(char *msg)
     puts(">: Msg @Unix-Dude");
     printf(">>: ");
     fgets(message, 1024, stdin);
-    strncpy(msg, message, s->i);
+    strncpy(s->msg, message, s->i);
 }
 
-void set_username(s_struc arg1)
+void set_username(s_struc *s)
 {
     char username[128];
 
