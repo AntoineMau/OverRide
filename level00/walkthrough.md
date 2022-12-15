@@ -1,6 +1,6 @@
 # Level0
 
-On observe que l'executable prend une entre sur l'entre standard
+On observe que l'exécutable lit un input sur l'entrée standard
 
 ```shell
 $ ./level00
@@ -12,8 +12,8 @@ Password:Hello World
 Invalid Password!
 ```
 
-On regarde l'assembleur et on remarque qu'il compare notre entre a
-<code>0x149c<sub>16</sub> <=> 5276<sub>10</sub></code> et s'ils sont egaux il lance
+On regarde l'assembleur et on remarque qu'il compare notre input a
+<code>0x149c<sub>16</sub> <=> 5276<sub>10</sub></code> et s'ils sont ésgaux il lance
 `system("/bin/sh")`
 
 ```shell

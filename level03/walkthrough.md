@@ -1,6 +1,6 @@
 # Level03
 
-On observe que l'executable prend une entre sur l'entre standard
+On observe que l'exécutable lit un input sur l'entrée standard
 
 ```shell
 $ ./level03
@@ -16,14 +16,14 @@ En reconstituant le code (_résultat sauvegardé dans [source.md](source.md)_).
 On cherche a trouver le nombre pour finaliser cette equation
 
 ```C
-"Q" ^ numbre = "C"
-"}" ^ numbre = "o"
+"Q" ^ number = "C"
+"}" ^ number = "o"
 ...
 ```
 
 On obtient <code>"Q}|u`sfg~sf{}|a3" ^ "Congratulations!" = 12121212121212121212121212121212<sub>16</sub></code>
 
-On comprend que le parametre de la fonction `decrypt()` doit prendre etre `0x12`. Nous devons, donc resoudre cette equation
+On comprend que le paramètre de la fonction `decrypt()` doit prendre etre `0x12`. Nous devons, donc résoudre cette équation
 
 ```Python
 0x1337d00d - input = 0x12

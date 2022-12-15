@@ -9,7 +9,7 @@ $ ./level08 /home/users/level09/.pass
 ERROR: Failed to open ./backups//home/users/level09/.pass
 ```
 
-On va aller dans `/tmp/` pour avoir un endroit ou l'on peut le creer
+On va aller dans `/tmp/` pour avoir un endroit ou l'on peut le créer
 
 ```shell
 $ cd /tmp/

@@ -12,9 +12,9 @@ $ ./level06
 -> Enter Serial: World
 ```
 
-Apres avoir reformer l'assembleur en C nous pouvons voir qu'il compare notre input `login` et notre input `serial`. Il compare notre `login` une fois crypte et notre `serial`.
+Apres avoir reformé le code C nous pouvons voir que le programme compare notre input `login` et notre input `serial`. Plus précisément, il compare notre `login` une fois crypté avec notre `serial`.
 
-On va faire un fichier python qui reproduit le comportement de cryptage du `level06`
+On va faire un fichier python qui reproduit le comportement de cryptage du `level06`.
 
 - [Level06.py](Ressources/level06.py)
 

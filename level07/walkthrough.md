@@ -24,9 +24,9 @@ Input command: read
 Input command: quit
 ```
 
-On cherche a faire ecrire par decu l'eip du main car la commande `store` est tres peu proteger dans l'executable `level07`
+On cherche à écrire par dessus l'eip du main car la commande `store` est très peu protegée dans l'executable `level07`
 
-On va donc chercher la distance entre le debut du tableau et l'eip
+On va donc chercher la distance entre le début du tableau et l'eip
 
 ```shell
 $ gdb level07 -q
@@ -47,7 +47,7 @@ $4 = 456
 $5 = 114
 ```
 
-456 octets les separes, soit `index = 114` vu que c'est un tableau d'`int`. Or `114 % 3 = 0` donc nous devons contourner cette protection dans la fonction `store`.
+456 octets les séparent, soit `index = 114` vu que c'est un tableau d'`int`. Or `114 % 3 = 0` donc nous devons contourner cette protection dans la fonction `store`.
 
 ```python
 dist_octet = 456
